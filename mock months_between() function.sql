@@ -88,3 +88,16 @@ select *
     end as months_diff_presto
 from tmp1
 ;
+
+
+
+-- 赠送内容：
+-- 使用case when逻辑 复刻prestosql中的 date_diff('month')函数；
+-- 其中start_dt d1 / end_dt d2，且d2>=d1；
+select 
+    (year(d2) - year(d1)) * 12 + month(d2) - month(d1) - 
+    case when d2 = last_day_of_month(d2) then 0
+        when day(d1)>day(d2) then -1
+        else 0 end
+    AS mon_diff
+from table0;
